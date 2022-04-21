@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html
+        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xml:lang="en" lang="en">
+<h:head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <title>Lista de Compras</title>
+<!--    <h:outputStylesheet name="css/styles.css"/>-->
+</h:head>
+<h:body>
+
+    <div class="main">
+
+        <span class="titulo-pagina">Lista de Compras</span>
+
+        <h:form id="form-cadastro-item" styleClass="form-cadastro-item">
+            <p:panelGrid id="panel-cadastro-item" columns="6">
+                <h:panelGroup styleClass="input-campo-e-erro">
+                    <p:outputLabel value="Item: " for="input-descricao"/>
+                    <h:panelGroup>
+                        <p:inputText value="#{listaBean.item.descricao}" id="input-descricao"/>
+                        <p:message for="input-descricao"/>
+                    </h:panelGroup>
+
+                    <p:outputLabel value="Quantidade: " for="input-quantidade"/>
+                    <h:panelGroup>
+                        <p:inputText value="#{listaBean.item.quantidade}" id="input-quantidade"/>
+                        <p:message for="input-quantidade"/>
+                    </h:panelGroup>
+
+                    <p:selectOneMenu value="#{listaBean.item.medida}" id="input-medida">
+                        <f:selectItem itemValue="#{null}" itemLabel="-- selecione --"/>
+                        <f:selectItems value="#{listaBean.medidas}" var="medida" itemValue="#{medida}" itemLabel="#{medida}"/>
+                    </p:selectOneMenu>
+
+                    <p:commandButton value="+"
+                                     action="#{listaBean.adicionar}"
+                                     update="form-listagem-item"/>
+                </h:panelGroup>
+            </p:panelGrid>
+        </h:form>
+
+        <h:form id="form-listagem-item">
+            <h:selectManyListbox value="#{listaBean.itensSelecionados}" id="lista-itens" style="width: 200px; height: 200px">
+                <f:selectItems value="#{listaBean.listaItens}" var="item" itemValue="#{item}" itemLabel="#{item}"/>
+            </h:selectManyListbox>
+
+                        <p:commandButton value="-"
+                                         action="#{listaBean.remover()}"
+                                         update="lista-itens"/>
+
+        </h:form>
+
+        <p:link value="Ir para página de Impressão" outcome="impressao"/>
+    </div>
+
+</h:body>
+</html>
