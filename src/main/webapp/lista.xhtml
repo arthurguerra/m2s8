@@ -1,63 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE html
-        PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:p="http://primefaces.org/ui"
-      xml:lang="en" lang="en">
+      xmlns:f="http://java.sun.com/jsf/core">
+
 <h:head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Lista de Compras</title>
-<!--    <h:outputStylesheet name="css/styles.css"/>-->
+    <h:outputStylesheet name="css/styles.css" />
 </h:head>
+
 <h:body>
 
-    <div class="main">
+    <h1>Lista de Compras</h1>
 
-        <span class="titulo-pagina">Lista de Compras</span>
+    <h:form id="form-item" styleClass="form-container" >
+        <h:outputLabel value="Item:" for="input-item" />
+        <h:inputText id="input-item" value="#{listaBean.item.descricao}" styleClass="input-item" title="Informe o item"/>
+        <h:message for="input-item" styleClass="error-msg" />
+        <h:outputLabel value="Quantidade:" for="input-qtd" />
+        <h:inputText id="input-qtd" value="#{listaBean.item.quantidade}" maxlength="5" styleClass="input-qtd"
+                     converterMessage="Quantidade deve ser um valor numérico!">
+            <f:validator validatorId="ValorPositivoValidator" />
+        </h:inputText>
+        <h:message for="input-qtd" styleClass="error-msg" />
+        <h:selectOneMenu value = "#{listaBean.item.medida}">
+            <f:selectItem itemValue = "unidade" itemLabel = "Unidades" />
+            <f:selectItem itemValue = "pacote" itemLabel = "Pacotes" />
+            <f:selectItem itemValue = "garrafa" itemLabel = "Garrafas" />
+            <f:selectItem itemValue = "kilo" itemLabel = "Kilos" />
+            <f:selectItem itemValue = "litro" itemLabel = "Litros" />
+        </h:selectOneMenu>
+        <h:commandButton value=" + " action="#{listaBean.adicionar}" styleClass="btn" title="Adicionar item na lista" />
+    </h:form>
 
-        <h:form id="form-cadastro-item" styleClass="form-cadastro-item">
-            <p:panelGrid id="panel-cadastro-item" columns="6">
-                <h:panelGroup styleClass="input-campo-e-erro">
-                    <p:outputLabel value="Item: " for="input-descricao"/>
-                    <h:panelGroup>
-                        <p:inputText value="#{listaBean.item.descricao}" id="input-descricao"/>
-                        <p:message for="input-descricao"/>
-                    </h:panelGroup>
+    <h:form id="form-lista" styleClass="form-container">
+        <h:selectManyListbox value="#{listaBean.itensSelecionados}" styleClass="select-item">
+            <f:selectItems value="#{listaBean.listaItens}" var="item" itemLabel="#{item}" itemValue="#{item}" />
+        </h:selectManyListbox>
+        <h:commandButton value=" - " action="#{listaBean.remover}" styleClass="btn" title="Remover item na lista" />
+    </h:form>
 
-                    <p:outputLabel value="Quantidade: " for="input-quantidade"/>
-                    <h:panelGroup>
-                        <p:inputText value="#{listaBean.item.quantidade}" id="input-quantidade"/>
-                        <p:message for="input-quantidade"/>
-                    </h:panelGroup>
-
-                    <p:selectOneMenu value="#{listaBean.item.medida}" id="input-medida">
-                        <f:selectItem itemValue="#{null}" itemLabel="-- selecione --"/>
-                        <f:selectItems value="#{listaBean.medidas}" var="medida" itemValue="#{medida}" itemLabel="#{medida}"/>
-                    </p:selectOneMenu>
-
-                    <p:commandButton value="+"
-                                     action="#{listaBean.adicionar}"
-                                     update="form-listagem-item"/>
-                </h:panelGroup>
-            </p:panelGrid>
-        </h:form>
-
-        <h:form id="form-listagem-item">
-            <h:selectManyListbox value="#{listaBean.itensSelecionados}" id="lista-itens" style="width: 200px; height: 200px">
-                <f:selectItems value="#{listaBean.listaItens}" var="item" itemValue="#{item}" itemLabel="#{item}"/>
-            </h:selectManyListbox>
-
-                        <p:commandButton value="-"
-                                         action="#{listaBean.remover()}"
-                                         update="lista-itens"/>
-
-        </h:form>
-
-        <p:link value="Ir para página de Impressão" outcome="impressao"/>
-    </div>
+    <h:link value="Ir para página de impressao" outcome="impressao" />
 
 </h:body>
+
 </html>

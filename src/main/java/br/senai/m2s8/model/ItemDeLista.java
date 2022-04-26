@@ -5,13 +5,13 @@ import javax.validation.constraints.NotNull;
 
 public class ItemDeLista{
 
-    @NotNull(message = "{campo.obrigatorio}")
+    @NotEmpty(message = "{campo.obrigatorio}")
     private String descricao;
 
     @NotNull(message = "{campo.obrigatorio}")
     private Float quantidade;
 
-    @NotNull(message = "{campo.obrigatorio}")
+    @NotEmpty(message = "{campo.obrigatorio}")
     private String medida;
 
 

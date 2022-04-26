@@ -7,24 +7,25 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui"
       xml:lang="en" lang="en">
-<head>
-    <title>Impressão</title>
-</head>
-<body>
+<h:head>
+    <title>Lista de Compras - Impressão</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <h:outputStylesheet name="css/styles.css" />
+</h:head>
 
-<div id="main">
+<h:body>
 
-    <span class="titulo-pagina">Lista de Compras</span>
+    <h1> Lista de Compras </h1>
 
-    <p:dataTable id="tb-itens" value="">
-        <p:column headerText="Lista de Compras">
-            <h:outputText value=""/>
-        </p:column>
-    </p:dataTable>
+    <h:dataTable id="tb-itens" value="#{listaBean.listaItens}" var="item" border="1" cellpadding="5">
+        <h:column>
+            <f:facet name="header">Lista de Compras</f:facet>
+            <h:outputText value="#{item}" />
+        </h:column>
+    </h:dataTable>
 
-    <p:link value="Voltar" outcome="lista"/>
-</div>
+    <h:link value="Voltar" outcome="lista" />
 
+</h:body>
 
-</body>
 </html>
